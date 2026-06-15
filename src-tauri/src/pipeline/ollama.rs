@@ -96,7 +96,7 @@ pub async fn generate_notulen(
         format!("Kon Ollama niet bereiken op {url}. Draait `ollama serve`?")
     })?;
 
-    if !resp.status().success() {
+    if !resp.status().is_success() {
         let code = resp.status();
         let body = resp.text().await.unwrap_or_default();
         bail!("Ollama gaf status {code}: {body}");
