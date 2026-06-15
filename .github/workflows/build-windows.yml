@@ -8,6 +8,10 @@ on:
     tags: ["v*"]
   workflow_dispatch:
 
+# Nodig zodat de release-stap een GitHub Release mag aanmaken.
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
