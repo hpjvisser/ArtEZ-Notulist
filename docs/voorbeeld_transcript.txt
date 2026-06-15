@@ -1,0 +1,23 @@
+Voorbeeldtranscript (voor het testen van de notulengeneratie zonder opname).
+Plaats dit als transcript.txt in een outputmap, of gebruik het om het
+prompt-template te beproeven.
+
+Voorzitter Jansen opent de vergadering om 10 uur. Aanwezig zijn Jansen,
+De Vries en Bakker. Pietersen is afwezig met kennisgeving. Als gast schuift
+controller Hendriks aan.
+
+Agendapunt 1, opening en mededelingen. Jansen meldt dat de jaarrekening
+volgende week wordt besproken. Geen verdere mededelingen.
+
+Agendapunt 2, huisvesting Arnhem. De Vries licht de voortgang van de
+verbouwing toe. Er is een tekort van ongeveer twee ton. Het college besluit
+de begroting bij te stellen en een aanvullend krediet aan te vragen. De Vries
+stelt een herziene begroting op voor de volgende vergadering.
+
+Agendapunt 3, personeel. Bakker bespreekt een vertrouwelijke kwestie rond een
+medewerker. Het college besluit een extern adviseur in te schakelen. Bakker
+neemt contact op met de adviseur.
+
+Agendapunt 4, rondvraag. Geen punten.
+
+Jansen sluit de vergadering om kwart voor elf.

@@ -1,0 +1,69 @@
+name: Build Windows
+
+# Bouwt de Tauri-release en de Inno Setup-installer op een Windows-runner,
+# zodat je geen lokale Windows-machine nodig hebt.
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Rust (stable, MSVC)
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Install frontend dependencies
+        run: npm install
+
+      # Genereer de Tauri-iconset uit de meegeleverde 1024x1024 PNG.
+      - name: Generate icons
+        run: npx --yes @tauri-apps/cli icon app-icon.png
+
+      # Bouwt src-tauri/target/release/artez-notulist.exe (+ NSIS-bundel).
+      - name: Build Tauri release
+        run: npm run tauri:build
+
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress -y
+
+      - name: Compile installer
+        run: |
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" installer\ArtezNotulist.iss
+
+      - name: Upload standalone executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: artez-notulist-exe
+          path: src-tauri/target/release/artez-notulist.exe
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: ArtezNotulistSetup
+          path: dist-installer/ArtezNotulistSetup.exe
+
+      # Bij een versietag (v1.0.0, …) ook een GitHub Release publiceren.
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist-installer/ArtezNotulistSetup.exe
+            src-tauri/target/release/artez-notulist.exe

@@ -1,0 +1,115 @@
+/* ArtEZ-huisstijl voor WeasyPrint (PDF-export van de conceptnotulen). */
+
+@page {
+  size: A4;
+  margin: 25mm 22mm 22mm 22mm;
+
+  @top-left {
+    content: "ArtEZ — Concept Notulen College van Bestuur";
+    font-family: "Arial", sans-serif;
+    font-size: 8pt;
+    color: #6b7480;
+  }
+  @bottom-right {
+    content: "Pagina " counter(page) " / " counter(pages);
+    font-family: "Arial", sans-serif;
+    font-size: 8pt;
+    color: #6b7480;
+  }
+  @bottom-left {
+    content: "Concept — niet vastgesteld";
+    font-family: "Arial", sans-serif;
+    font-size: 8pt;
+    color: #c0392b;
+  }
+}
+
+:root {
+  --artez-blue: #0a2540;
+  --artez-accent: #00a0e3;
+}
+
+body {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 10.5pt;
+  line-height: 1.45;
+  color: #1a1f24;
+}
+
+h1 {
+  font-family: "Arial", sans-serif;
+  font-size: 18pt;
+  color: var(--artez-blue);
+  border-bottom: 2pt solid var(--artez-accent);
+  padding-bottom: 4pt;
+  margin-bottom: 14pt;
+}
+
+h2 {
+  font-family: "Arial", sans-serif;
+  font-size: 12.5pt;
+  color: var(--artez-blue);
+  margin-top: 16pt;
+  margin-bottom: 4pt;
+}
+
+h3 {
+  font-family: "Arial", sans-serif;
+  font-size: 11pt;
+  color: #243b53;
+}
+
+/* Kopblok-velden (Datum, Tijd, …). */
+p strong:first-child {
+  color: var(--artez-blue);
+}
+
+/* Besluit-regels accentueren. */
+p:has(> strong:first-child) {
+  margin: 3pt 0;
+}
+
+strong {
+  font-weight: 700;
+}
+
+/* Vertrouwelijkheids-/conceptmelding (blockquote). */
+blockquote {
+  border-left: 3pt solid var(--artez-accent);
+  background: #f5f9fc;
+  margin: 0 0 14pt 0;
+  padding: 6pt 12pt;
+  font-family: "Arial", sans-serif;
+  font-size: 9pt;
+  color: #334e68;
+}
+
+ul {
+  margin: 4pt 0 8pt 0;
+}
+
+li {
+  margin-bottom: 2pt;
+}
+
+/* Onzekerheidsmarkeringen [?: …] opvallend maken. */
+em {
+  font-style: italic;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 9.5pt;
+  margin: 8pt 0;
+}
+th, td {
+  border: 0.5pt solid #c9d2db;
+  padding: 4pt 6pt;
+  text-align: left;
+}
+th {
+  background: var(--artez-blue);
+  color: #fff;
+  font-family: "Arial", sans-serif;
+}

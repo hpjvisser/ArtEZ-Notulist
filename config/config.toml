@@ -1,0 +1,42 @@
+# ArtEZ Notulist — configuratie
+# Dit bestand wordt door de installer naar C:\ArtezNotulist\config.toml gekopieerd.
+# Pas paden en modellen hier aan; de applicatie leest dit bij elke run opnieuw.
+
+[paths]
+root      = 'C:\ArtezNotulist'
+inbox     = 'C:\ArtezNotulist\inbox'
+output    = 'C:\ArtezNotulist\output'
+logs      = 'C:\ArtezNotulist\logs'
+templates = 'C:\ArtezNotulist\templates'
+models    = 'C:\ArtezNotulist\models'
+
+[binaries]
+# Laat op "ffmpeg"/"pandoc"/"weasyprint" staan als ze in PATH staan,
+# of geef een volledig pad naar de .exe.
+ffmpeg     = 'ffmpeg'
+whisper    = 'C:\ArtezNotulist\whisper\whisper-cli.exe'
+pandoc     = 'pandoc'
+weasyprint = 'weasyprint'
+
+[whisper]
+model_file = 'C:\ArtezNotulist\models\ggml-large-v3.bin'
+threads    = 8
+use_gpu    = true
+
+[ollama]
+host          = 'http://127.0.0.1:11434'
+default_model = 'mistral'
+# Modellen die in de UI kiesbaar zijn. Voeg hier nieuwe modellen toe
+# (na `ollama pull <model>`), zonder de applicatie te hercompileren.
+models        = ['mistral', 'llama3.1', 'qwen2.5', 'gemma2']
+temperature   = 0.2
+num_ctx       = 8192
+
+[settings]
+anonimiseren           = false
+sprekerherkenning      = false
+actiepuntenExtractie   = true
+vertrouwelijkheidslabel = 'Intern'
+huisstijlTemplate      = 'C:\ArtezNotulist\templates\artez_huisstijl.docx'
+model                  = 'mistral'
+taal                   = 'nl'
