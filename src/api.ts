@@ -42,7 +42,7 @@ export async function startTranscription(
   return invoke<string>("start_transcription", { inputPath, settings });
 }
 
-/** Stap 4 t/m 6: Ollama-notulen + Pandoc/WeasyPrint-documenten. */
+/** Stap 4 t/m 6: Ollama-notulen + Pandoc/wkhtmltopdf-documenten. */
 export async function generateNotulen(
   inputPath: string,
   settings: Settings

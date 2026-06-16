@@ -1,6 +1,6 @@
 [package]
 name = "artez-notulist"
-version = "1.0.0"
+version = "1.0.1"
 description = "ArtEZ Notulist — lokale conceptnotulen voor het College van Bestuur"
 authors = ["ArtEZ"]
 edition = "2021"

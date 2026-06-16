@@ -1,7 +1,7 @@
 {
   "name": "artez-notulist",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Lokale verwerking van vergaderopnames tot conceptnotulen volgens de stijl van het ArtEZ College van Bestuur.",
   "scripts": {

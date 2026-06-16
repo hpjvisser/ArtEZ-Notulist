@@ -4,29 +4,33 @@
 
 1. Voer **`ArtezNotulistSetup.exe`** uit (als administrator).
 2. Laat de taak *"Afhankelijkheden automatisch installeren"* aangevinkt.
-3. De installer:
-   - maakt `C:\ArtezNotulist\{inbox,output,logs,templates,models,whisper}` aan;
-   - installeert **FFmpeg, Ollama, Pandoc, WeasyPrint** (via `winget`, met
-     download-fallback);
+3. De installer (self-contained — geen `winget` of PATH nodig):
+   - maakt `C:\ArtezNotulist\{inbox,output,logs,templates,models,whisper,bin}` aan;
+   - zet **FFmpeg** en **Pandoc** als portable `.exe` in `C:\ArtezNotulist\bin`;
+   - installeert **wkhtmltopdf** (PDF-engine, één self-contained programma);
    - downloadt **whisper.cpp** en het **large-v3-model** (~3 GB);
-   - genereert een huisstijl-referentiedocument;
-   - haalt het Ollama-model **`mistral`** op.
+   - installeert **Ollama** en haalt het model **`mistral`** op;
+   - schrijft `config.toml` met **absolute paden** naar al deze binaries.
 4. Start **ArtEZ Notulist** via het menu.
 
 > De eerste installatie kan lang duren door de modeldownload van ~3 GB.
 
+> Mislukt er iets (bijv. de internetverbinding viel weg)? Gebruik de
+> startmenu-snelkoppeling **"Onderdelen installeren of herstellen"** om het
+> script opnieuw te draaien — het slaat alles over wat al binnen is.
+
 ## 2. Handmatige afhankelijkheden (fallback)
 
-Als automatische installatie faalt (bijv. geen `winget`):
+Draai eerst de startmenu-snelkoppeling **"Onderdelen installeren of herstellen"**
+(of `installer\scripts\install_deps.ps1` als administrator). Lukt een onderdeel
+dan nog niet, installeer het handmatig en zet het juiste pad in `config.toml`:
 
-```powershell
-winget install Gyan.FFmpeg
-winget install Ollama.Ollama
-winget install JohnMacFarlane.Pandoc
-winget install Python.Python.3.12
-python -m pip install weasyprint
-ollama pull mistral
-```
+| Onderdeel | Download | `config.toml`-sleutel |
+|-----------|----------|-----------------------|
+| FFmpeg | https://www.gyan.dev/ffmpeg/builds/ (essentials zip) | `binaries.ffmpeg` |
+| Pandoc | https://github.com/jgm/pandoc/releases (windows-x86_64.zip) | `binaries.pandoc` |
+| wkhtmltopdf | https://wkhtmltopdf.org/downloads.html (win64 installer) | `binaries.wkhtmltopdf` |
+| Ollama | https://ollama.com/download (daarna `ollama pull mistral`) | n.v.t. (HTTP 11434) |
 
 ### whisper.cpp + model
 
@@ -54,18 +58,13 @@ CPU-build; voor GPU:
 Zet in `config.toml` onder `[whisper]` `use_gpu = true` (standaard). Met
 `use_gpu = false` draait alles op de CPU.
 
-## 4. WeasyPrint op Windows (Pango/GTK)
+## 4. PDF-export (wkhtmltopdf)
 
-WeasyPrint heeft de **Pango/GTK-runtime** nodig. Als PDF-export faalt met een
-melding over `libgobject`/`pango`:
-
-1. Installeer de **GTK3-runtime** (bijv. via MSYS2: `pacman -S mingw-w64-x86_64-pango`),
-   of het *gtk-for-windows* runtime-installatiepakket.
-2. Zorg dat de GTK-`bin`-map in `PATH` staat.
-3. Herstart de applicatie.
-
-Alternatief: vervang in `config.toml` de PDF-stap door een andere engine
-(bijv. `wkhtmltopdf`) — pas dan `pipeline/documents.rs` aan.
+De PDF wordt gemaakt met **wkhtmltopdf** — één self-contained programma, geen
+Python of GTK nodig. Standaard geïnstalleerd in
+`C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe`. Faalt de PDF-stap, controleer
+dan dat dit bestand bestaat en dat `binaries.wkhtmltopdf` in `config.toml` ernaar
+verwijst. De DOCX-export (Pandoc) staat hier los van en werkt onafhankelijk.
 
 ## 5. Configuratie aanpassen
 

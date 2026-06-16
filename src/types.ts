@@ -5,7 +5,7 @@ export type Stage =
   | "extracting"   // FFmpeg
   | "transcribing" // Whisper
   | "generating"   // Ollama
-  | "documents"    // Pandoc / WeasyPrint
+  | "documents"    // Pandoc / wkhtmltopdf
   | "done"
   | "error";
 

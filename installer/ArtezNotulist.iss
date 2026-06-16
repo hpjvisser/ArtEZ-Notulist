@@ -9,7 +9,7 @@
 ; ============================================================================
 
 #define AppName        "ArtEZ Notulist"
-#define AppVersion      "1.0.0"
+#define AppVersion      "1.0.1"
 #define AppPublisher    "ArtEZ University of the Arts"
 #define AppExeName      "artez-notulist.exe"
 #define DataRoot        "C:\ArtezNotulist"
@@ -70,6 +70,10 @@ Name: "{#DataRoot}\whisper";   Permissions: users-modify
 [Icons]
 Name: "{group}\ArtEZ Notulist";      Filename: "{app}\{#AppExeName}"
 Name: "{group}\Outputmap";           Filename: "{#DataRoot}\output"
+Name: "{group}\Onderdelen installeren of herstellen"; \
+  Filename: "powershell.exe"; \
+  Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\scripts\install_deps.ps1"" -Root ""{#DataRoot}"""; \
+  Comment: "Download/herstel FFmpeg, Whisper, model, Pandoc, wkhtmltopdf en Ollama"
 Name: "{group}\{cm:UninstallProgram,ArtEZ Notulist}"; Filename: "{uninstallexe}"
 Name: "{autodesktop}\ArtEZ Notulist"; Filename: "{app}\{#AppExeName}"; Tasks: desktopicon
 

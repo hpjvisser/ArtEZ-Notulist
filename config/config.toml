@@ -10,13 +10,13 @@ logs      = 'C:\ArtezNotulist\logs'
 templates = 'C:\ArtezNotulist\templates'
 models    = 'C:\ArtezNotulist\models'
 
+# LET OP: de installer overschrijft dit bestand met absolute paden.
+# Dit is alleen de fallback als de installer niet heeft gedraaid.
 [binaries]
-# Laat op "ffmpeg"/"pandoc"/"weasyprint" staan als ze in PATH staan,
-# of geef een volledig pad naar de .exe.
-ffmpeg     = 'ffmpeg'
-whisper    = 'C:\ArtezNotulist\whisper\whisper-cli.exe'
-pandoc     = 'pandoc'
-weasyprint = 'weasyprint'
+ffmpeg      = 'C:\ArtezNotulist\bin\ffmpeg.exe'
+whisper     = 'C:\ArtezNotulist\whisper\whisper-cli.exe'
+pandoc      = 'C:\ArtezNotulist\bin\pandoc.exe'
+wkhtmltopdf = 'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
 
 [whisper]
 model_file = 'C:\ArtezNotulist\models\ggml-large-v3.bin'

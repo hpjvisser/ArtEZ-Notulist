@@ -45,21 +45,21 @@ pub struct Binaries {
     pub whisper: String,
     /// Pad naar pandoc.exe.
     pub pandoc: String,
-    /// Pad naar weasyprint.exe.
-    pub weasyprint: String,
+    /// Pad naar wkhtmltopdf.exe (HTML → PDF).
+    pub wkhtmltopdf: String,
 }
 
 impl Default for Binaries {
     fn default() -> Self {
         let root = PathBuf::from(ROOT);
         Self {
-            ffmpeg: "ffmpeg".into(),
+            ffmpeg: root.join(r"bin\ffmpeg.exe").to_string_lossy().into(),
             whisper: root
                 .join(r"whisper\whisper-cli.exe")
                 .to_string_lossy()
                 .into(),
-            pandoc: "pandoc".into(),
-            weasyprint: "weasyprint".into(),
+            pandoc: root.join(r"bin\pandoc.exe").to_string_lossy().into(),
+            wkhtmltopdf: r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe".into(),
         }
     }
 }
@@ -217,7 +217,7 @@ impl Config {
         Path::new(&self.paths.templates).join("notulen_prompt.md")
     }
 
-    /// Pad naar de WeasyPrint-stylesheet.
+    /// Pad naar de PDF-stylesheet (huisstijl).
     pub fn pdf_stylesheet(&self) -> PathBuf {
         Path::new(&self.paths.templates).join("pdf_style.css")
     }

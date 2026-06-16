@@ -15,7 +15,7 @@ transcriptie en tekstgeneratie draait op de eigen machine.
 | Transcriptie | **whisper.cpp**, model **large-v3**, GPU-versnelling indien beschikbaar |
 | Taalmodel | **Ollama** (standaard `mistral`, instelbaar via `config.toml`) |
 | Audio | **FFmpeg** |
-| Documenten | **Pandoc** (DOCX) + **WeasyPrint** (PDF) |
+| Documenten | **Pandoc** (DOCX) + **wkhtmltopdf** (PDF) |
 | Installer | **Inno Setup** → `ArtezNotulistSetup.exe` |
 
 ## Workflow
@@ -25,7 +25,7 @@ transcriptie en tekstgeneratie draait op de eigen machine.
 3. **Whisper large-v3** maakt het transcript (`transcript.txt`).
 4. **Ollama** genereert de conceptnotulen volgens het ArtEZ-stijltemplate.
 5. **Pandoc** maakt `concept_notulen.docx` (met huisstijl-referentiedocument).
-6. **WeasyPrint** maakt `concept_notulen.pdf`.
+6. **wkhtmltopdf** maakt `concept_notulen.pdf`.
 7. Actiepunten worden geëxtraheerd naar `actielijst.csv`.
 
 ### Outputbestanden (`C:\ArtezNotulist\output\<opname>_<datum>\`)
@@ -99,7 +99,7 @@ iscc installer\ArtezNotulist.iss
 ```
 
 De installer (`ArtezNotulistSetup.exe`) installeert daarna automatisch FFmpeg,
-Ollama, Pandoc, WeasyPrint, whisper.cpp en het large-v3-model, en maakt de
+Ollama, Pandoc, wkhtmltopdf, whisper.cpp en het large-v3-model, en maakt de
 mapstructuur aan. Zie [docs/INSTALL.md](docs/INSTALL.md) voor details en
 handmatige fallbacks.
 
@@ -146,6 +146,8 @@ voor gezamenlijke besluiten, geen verzonnen feiten, onzekerheden als
 ## Status / let op
 
 - De broncode is volledig; de Windows-**build** en de **native afhankelijkheden**
-  (Whisper, Ollama, GTK voor WeasyPrint) moeten op een Windows-machine worden
-  uitgevoerd. Dit project is geschreven op macOS en is daar niet gecompileerd.
-- WeasyPrint heeft op Windows de Pango/GTK-runtime nodig — zie docs/INSTALL.md.
+  (Whisper, Ollama) draaien op een Windows-machine. Dit project is geschreven op
+  macOS en is daar niet gecompileerd.
+- De installer is **self-contained**: alle binaries komen als portable bestanden
+  onder `C:\ArtezNotulist` met absolute paden in `config.toml` (geen PATH/winget
+  nodig). PDF gaat via **wkhtmltopdf** (één .exe), niet via WeasyPrint.

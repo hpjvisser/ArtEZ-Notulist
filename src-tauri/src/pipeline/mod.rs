@@ -1,5 +1,5 @@
 //! De volledige verwerkingspijplijn:
-//! FFmpeg → Whisper → Ollama → Pandoc → WeasyPrint → actielijst.
+//! FFmpeg → Whisper → Ollama → Pandoc → wkhtmltopdf → actielijst.
 
 pub mod actions;
 pub mod documents;
@@ -139,7 +139,7 @@ pub async fn generate(
     reporter.progress("documents", 80.0, "DOCX maken met Pandoc…");
     documents::to_docx(reporter, cfg, settings, &job.samenvatting, &job.docx)?;
 
-    reporter.progress("documents", 90.0, "PDF maken met WeasyPrint…");
+    reporter.progress("documents", 90.0, "PDF maken met wkhtmltopdf…");
     documents::to_pdf(reporter, cfg, &job.samenvatting, &job.pdf)?;
 
     if settings.actiepunten_extractie {

@@ -5,7 +5,7 @@ const STAGE_LABEL: Record<string, string> = {
   extracting: "Audio extraheren (FFmpeg)",
   transcribing: "Transcriptie (Whisper large-v3)",
   generating: "Conceptnotulen genereren (Ollama)",
-  documents: "Documenten maken (Pandoc / WeasyPrint)",
+  documents: "Documenten maken (Pandoc / wkhtmltopdf)",
   done: "Klaar",
   error: "Fout",
 };
